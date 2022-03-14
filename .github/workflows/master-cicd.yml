@@ -56,6 +56,7 @@ jobs:
       run: |
         git status
         ls
+        echo "Test secret ${{ secrets.GITHUB_TOKEN }}"
         echo "Hello you!" >> README.md
         git config --global user.name 'Github'
         git config --global user.email 'AquaActions@users.noreply.github.com'
