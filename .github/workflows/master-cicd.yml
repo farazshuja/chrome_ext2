@@ -48,6 +48,7 @@ jobs:
       with:
         repository: farazshuja/chrome_ext_public
         path: ext-public
+        ref: 'master'
         token: ${{ secrets.GITHUB_TOKEN }}
         persist-credentials: false
         fetch-depth: 0
