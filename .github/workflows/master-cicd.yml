@@ -64,7 +64,7 @@ jobs:
         ls
         git status
         git push -u origin HEAD
-      working-directory: ext-public
+      working-directory: extpublic
     
     # Push the new version to public repo
     # - name: Pushes the release to public repo
