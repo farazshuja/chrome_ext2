@@ -49,7 +49,6 @@ jobs:
       with:
         repository: farazshuja/chrome_ext_public
         path: ext-public
-        token: ${{ secrets.GITHUB_TOKEN }}
         fetch-depth: 0
 
     - name: Update file
