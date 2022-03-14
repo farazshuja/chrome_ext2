@@ -45,17 +45,28 @@ jobs:
         # token: ${{ secrets.GITHUB_TOKEN }}
     
     # Push the new version to public repo
-    - name: Pushes the release to public repo
-      uses: dmnemec/copy_file_to_another_repo_action@main
+    # - name: Pushes the release to public repo
+    #   uses: dmnemec/copy_file_to_another_repo_action@main
+    #   env:
+    #     API_TOKEN_GITHUB: ${{ secrets.GITHUB_TOKEN }}
+    #   with:
+    #     source_file: 'extension.zip'
+    #     destination_repo: 'farazshuja/chrome_ext_public'
+    #     destination_branch: 'master'
+    #     user_email: 'AquaActions@users.noreply.github.com'
+    #     user_name: 'Github'
+    #     commit_message: 'Release v${{ steps.bump_version.outputs.next-version }}'
+
+    - name: Pushes to another repository
+      uses: cpina/github-action-push-to-another-repository@main
       env:
         API_TOKEN_GITHUB: ${{ secrets.GITHUB_TOKEN }}
       with:
-        source_file: 'extension.zip'
-        destination_repo: 'farazshuja/chrome_ext_public'
-        destination_branch: 'master'
-        user_email: 'AquaActions@users.noreply.github.com'
-        user_name: 'Github'
-        commit_message: 'Release v{{ steps.bump_version.outputs.next-version }}'
+        source-directory: 'extension'
+        destination-github-username: 'farazshuja'
+        destination-repository-name: 'chrome_ext_public'
+        user-email: 'AquaActions@users.noreply.github.com'
+        target-branch: 'master'
     # will print 2.12.0
     # - name: Upload a Build Artifact
     #   uses: actions/upload-artifact@v2.3.1
