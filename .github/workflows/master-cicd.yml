@@ -47,8 +47,8 @@ jobs:
     # Push the new version to public repo
     - name: Pushes the release to public repo
       uses: dmnemec/copy_file_to_another_repo_action@main
-      # env:
-      #   API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.GITHUB_TOKEN }}
       with:
         source_file: 'extension.zip'
         destination_repo: 'farazshuja/chrome_ext_public'
