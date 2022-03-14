@@ -37,11 +37,24 @@ jobs:
 
     - run: yarn pack:zip
 
+    # Release version along with the zipped extension as assets
     - uses: ncipollo/release-action@v1
       with:
         artifacts: "extension.zip"
         tag: v${{ steps.bump_version.outputs.next-version }}
         # token: ${{ secrets.GITHUB_TOKEN }}
+    
+    # Push the new version to public repo
+    - name: Pushes the release to public repo
+      uses: dmnemec/copy_file_to_another_repo_action@main
+      # env:
+      #   API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+      with:
+        source_file: 'extension.zip'
+        destination_repo: 'farazshuja/chrome_ext_public'
+        user_email: 'AquaActions@users.noreply.github.com'
+        user_name: 'Github'
+        commit_message: 'Release v{{ steps.bump_version.outputs.next-version }}'
     # will print 2.12.0
     # - name: Upload a Build Artifact
     #   uses: actions/upload-artifact@v2.3.1
