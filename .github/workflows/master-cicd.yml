@@ -52,21 +52,19 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         fetch-depth: 0
 
-    - name: Set git settings
-      run: |
-        git config --global user.name 'Github'
-        git config --global user.email 'AquaActions@users.noreply.github.com'
-      working-directory: extpublic
-
     - name: Update file
       run: |
-        git config -l
+        git status
+        ls
         echo "Hello you!" >> README.md
+        git config --global user.name 'Github'
+        git config --global user.email 'AquaActions@users.noreply.github.com'
         git add .
         git commit -m "update it"
+        ls
         git status
         git push -u origin HEAD
-      working-directory: extpublic
+      working-directory: ext-public
     
     # Push the new version to public repo
     # - name: Pushes the release to public repo
