@@ -49,14 +49,14 @@ jobs:
         repository: farazshuja/chrome_ext_public
         path: extpublic
         ref: 'master'
-        token: ${{ secrets.GITHUB_TOKEN1 }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         fetch-depth: 0
 
     - name: Update file
       run: |
         git status
         ls
-        echo "Test secret . ${{ secrets.GITHUB_TOKEN1 }}"
+        echo "Test secret . ${{ secrets.GITHUB_TOKEN }}"
         echo "Hello you!" >> README.md
         git config --global user.name 'Github'
         git config --global user.email 'AquaActions@users.noreply.github.com'
