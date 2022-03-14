@@ -17,32 +17,31 @@ jobs:
     - run: yarn
 
     # Get current version
-    - name: package-version  
-      uses: nyaa8/package-version@v1.0.3
+    # - name: package-version  
+    #   uses: nyaa8/package-version@v1.0.3
 
     # Get next release version
-    - name: Bump release version
-      id: bump_version
-      uses: christian-draeger/increment-semantic-version@1.0.2
-      with:
-        current-version: ${{ env.PACKAGE_VERSION }}
-        version-fragment: 'feature'
+    # - name: Bump release version
+    #   id: bump_version
+    #   uses: christian-draeger/increment-semantic-version@1.0.2
+    #   with:
+    #     current-version: ${{ env.PACKAGE_VERSION }}
+    #     version-fragment: 'feature'
 
-    - name: 'Update version'
-      run: |
-        git config --global user.name 'Github'
-        git config --global user.email 'AquaActions@users.noreply.github.com'
-        npm version ${{ steps.bump_version.outputs.next-version }}
-        git push -u origin HEAD
+    # - name: 'Update version'
+    #   run: |
+    #     git config --global user.name 'Github'
+    #     git config --global user.email 'AquaActions@users.noreply.github.com'
+    #     npm version ${{ steps.bump_version.outputs.next-version }}
+    #     git push -u origin HEAD
 
-    - run: yarn pack:zip
+    # - run: yarn pack:zip
 
     # Release version along with the zipped extension as assets
-    - uses: ncipollo/release-action@v1
-      with:
-        artifacts: "extension.zip"
-        tag: v${{ steps.bump_version.outputs.next-version }}
-        # token: ${{ secrets.GITHUB_TOKEN }}
+    # - uses: ncipollo/release-action@v1
+    #   with:
+    #     artifacts: "extension.zip"
+    #     tag: v${{ steps.bump_version.outputs.next-version }}
 
     - name: Checkout Public repo
       uses: actions/checkout@v2
@@ -55,6 +54,7 @@ jobs:
 
     - name: Update file
       run: |
+        git config -l
         echo "Hello you!" >> README.md
         git config --global user.name 'Github'
         git config --global user.email 'AquaActions@users.noreply.github.com'
