@@ -1,0 +1,2 @@
+Temporary text file to be zipped and deployed by github actions.
+Added this line in scope of Feature/branch-1

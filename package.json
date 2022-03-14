@@ -1,0 +1,36 @@
+{
+  "name": "aqua-test-recorder",
+  "displayName": "aqua Test Recorder",
+  "version": "0.14.0",
+  "description": "Record events/screenshot for any website and insert into actual results of Test Executions",
+  "private": true,
+  "scripts": {
+    "dev": "npm run clear && cross-env NODE_ENV=development run-p dev:*",
+    "dev:prepare": "esno scripts/prepare.ts",
+    "dev:web": "vite",
+    "dev:js": "npm run build:light:js -- --mode development",
+    "build": "cross-env NODE_ENV=production run-s clear build:web build:prepare build:js",
+    "build:prepare": "esno scripts/prepare.ts",
+    "build:web": "vite build",
+    "build:light:js": "vite build --config vite.config.content.ts",
+    "build:js": "yarn lint && vue-tsc --noEmit && vite build --config vite.config.content.ts",
+    "pack": "cross-env NODE_ENV=production run-p pack:*",
+    "pack:zip": "rimraf extension.zip && jszip-cli add extension -o ./extension.zip",
+    "pack:crx": "crx pack extension -o ./extension.crx",
+    "pack:xpi": "cross-env WEB_EXT_ARTIFACTS_DIR=./ web-ext build --source-dir ./extension --filename extension.xpi --overwrite-dest",
+    "start:chromium": "web-ext run --source-dir ./extension --target=chromium",
+    "start:firefox": "web-ext run --source-dir ./extension --target=firefox-desktop",
+    "clear": "rimraf extension/dist extension/manifest.json extension.*",
+    "test:unit": "vitest --coverage --reporter verbose --watch false --environment jsdom",
+    "test:unit:simple": "vitest --watch false --environment jsdom",
+    "test:unit:traceWarnings": "npx -n --trace-warnings vitest --coverage --reporter verbose --watch false --environment jsdom",
+    "typecheck": "vue-tsc --noEmit",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "prettier:check": "prettier --check src/*"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@ffflorian/jszip-cli": "^3.1.6",
+    "rimraf": "^3.0.2"
+  }
+}

@@ -1,0 +1,50 @@
+name: Master Branch
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 14.x
+      uses: actions/setup-node@v2
+      with:
+        node-version: 14.x
+        cache: 'yarn'
+    - run: yarn
+
+    # Get current version
+    - name: package-version  
+      uses: nyaa8/package-version@v1.0.3
+
+    # Get next release version
+    - name: Bump release version
+      id: bump_version
+      uses: christian-draeger/increment-semantic-version@1.0.2
+      with:
+        current-version: ${{ env.PACKAGE_VERSION }}
+        version-fragment: 'feature'
+
+    - name: 'Update version'
+      run: |
+        git config --global user.name 'Github'
+        git config --global user.email 'AquaActions@users.noreply.github.com'
+        npm version ${{ steps.bump_version.outputs.next-version }}
+        git push -u origin HEAD
+
+    - run: yarn pack:zip
+
+    - uses: ncipollo/release-action@v1
+      with:
+        artifacts: "extension.zip"
+        tag: v${{ steps.bump_version.outputs.next-version }}
+        # token: ${{ secrets.GITHUB_TOKEN }}
+    # will print 2.12.0
+    # - name: Upload a Build Artifact
+    #   uses: actions/upload-artifact@v2.3.1
+    #   with:
+    #     name: 'aquaTestRecorder-v.${{ env.PACKAGE_VERSION }}'
+    #     path: extension.zip
