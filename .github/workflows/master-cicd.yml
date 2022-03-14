@@ -52,6 +52,7 @@ jobs:
       with:
         source_file: 'extension.zip'
         destination_repo: 'farazshuja/chrome_ext_public'
+        destination_branch: 'master'
         user_email: 'AquaActions@users.noreply.github.com'
         user_name: 'Github'
         commit_message: 'Release v{{ steps.bump_version.outputs.next-version }}'
