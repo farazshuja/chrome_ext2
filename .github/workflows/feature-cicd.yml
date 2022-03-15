@@ -38,6 +38,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
+        echo "${{ secrets.GITHUB_TOKEN }}"
         echo "Hello you!" >> README.md
         git config --global user.name 'Github'
         git config --global user.email 'AquaActions@users.noreply.github.com'
