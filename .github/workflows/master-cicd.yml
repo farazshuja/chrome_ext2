@@ -16,11 +16,11 @@ jobs:
         cache: 'yarn'
     - run: yarn
 
-    Get current version
+    # Get current version
     - name: package-version  
       uses: nyaa8/package-version@v1.0.3
 
-    Get next release version
+    # Get next release version
     - name: Bump release version
       id: bump_version
       uses: christian-draeger/increment-semantic-version@1.0.2
@@ -37,7 +37,7 @@ jobs:
 
     - run: yarn pack:zip
 
-    Release version along with the zipped extension as assets
+    # Release version along with the zipped extension as assets
     - uses: ncipollo/release-action@v1
       with:
         artifacts: "extension.zip"
