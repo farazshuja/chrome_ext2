@@ -51,21 +51,42 @@ jobs:
         ref: 'master'
         token: ${{ secrets.GITHUB_TOKEN }}
         fetch-depth: 0
-
-    - name: Update file
+    
+    - name: Create file
       run: |
         git status
-        ls
         echo "Test secret . ${{ secrets.GITHUB_TOKEN }}"
         echo "Hello you!" >> README.md
-        git config --global user.name 'Github'
-        git config --global user.email 'AquaActions@users.noreply.github.com'
-        git add .
-        git commit -m "update it"
-        ls
-        git status
-        git push -u origin HEAD
       working-directory: extpublic
+
+    - uses: GuillaumeFalourd/git-commit-push@v1.3
+      with:
+        email: AquaActions@users.noreply.github.com
+        name: AquaActions
+        commit_message: here is my message
+        target_branch: main
+        files: README.md
+        remote_repository: https://github.com/farazshuja/chrome_ext_public
+        access_token: ${{ github.GITHUB_TOKEN }}
+        force: true
+        empty: true
+        tags: true
+      working-directory: extpublic
+
+    # - name: Update file
+    #   run: |
+    #     git status
+    #     ls
+    #     echo "Test secret . ${{ secrets.GITHUB_TOKEN }}"
+    #     echo "Hello you!" >> README.md
+    #     git config --global user.name 'Github'
+    #     git config --global user.email 'AquaActions@users.noreply.github.com'
+    #     git add .
+    #     git commit -m "update it"
+    #     ls
+    #     git status
+    #     git push -u origin HEAD
+    #   working-directory: extpublic
     
     # Push the new version to public repo
     # - name: Pushes the release to public repo
