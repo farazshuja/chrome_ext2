@@ -32,13 +32,12 @@ jobs:
         repository: farazshuja/chrome_ext_public
         ref: master
         path: extpublic
+        token: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
         fetch-depth: 0
     
     - name: Push to new repo.
-      env:
-        GITHUB_TOKEN: ${{ secrets.AQUA_ACTIONS_GITHUB_TOKEN }}
       run: |
-        echo "${{ secrets.AQUA_ACTIONS_GITHUB_TOKEN }}"
+        echo "${{ secrets.ACTIONS_GITHUB_TOKEN }}"
         echo "Hello you!" >> README.md
         git config --global user.name 'Github'
         git config --global user.email 'AquaActions@users.noreply.github.com'
