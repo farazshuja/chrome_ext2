@@ -71,7 +71,6 @@ jobs:
         force: true
         empty: true
         tags: true
-      working-directory: extpublic
 
     # - name: Update file
     #   run: |
