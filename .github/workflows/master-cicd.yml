@@ -8,13 +8,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    # - uses: actions/checkout@v2
-    # - name: Use Node.js 14.x
-    #   uses: actions/setup-node@v2
-    #   with:
-    #     node-version: 14.x
-    #     cache: 'yarn'
-    # - run: yarn
+    - uses: actions/checkout@v2
+    - name: Use Node.js 14.x
+      uses: actions/setup-node@v2
+      with:
+        node-version: 14.x
+        cache: 'yarn'
+    - run: yarn
 
     # Get current version
     # - name: package-version  
@@ -43,26 +43,28 @@ jobs:
     #     artifacts: "extension.zip"
     #     tag: v${{ steps.bump_version.outputs.next-version }}
 
-    - name: Checkout Public repo
-      uses: actions/checkout@v2
-      with:
-        repository: farazshuja/chrome_ext_public
-        ref: 'master'
-        token: ${{ secrets.GITHUB_TOKEN }}
-        fetch-depth: 0
+    # - name: Checkout Public repo
+    #   uses: actions/checkout@v2
+    #   with:
+    #     repository: farazshuja/chrome_ext_public
+    #     path: extpublic
+    #     ref: 'master'
+    #     token: ${{ secrets.GITHUB_TOKEN }}
+    #     fetch-depth: 0
     
-    - name: Create file
-      run: |
-        git status
-        echo "Test secret . ${{ secrets.GITHUB_TOKEN }}"
-        echo "Hello you!" >> README.md
+    # - name: Create file
+    #   run: |
+    #     git status
+    #     echo "Test secret . ${{ secrets.GITHUB_TOKEN }}"
+    #     echo "Hello you!" >> README.md
+    #   working-directory: extpublic
 
     - uses: GuillaumeFalourd/git-commit-push@v1.3
       with:
         email: AquaActions@users.noreply.github.com
         name: AquaActions
         commit_message: here is my message
-        target_branch: master
+        target_branch: main
         files: README.md
         remote_repository: https://github.com/farazshuja/chrome_ext_public
         access_token: ${{ secrets.GITHUB_TOKEN }}
