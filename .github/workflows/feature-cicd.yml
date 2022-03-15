@@ -66,3 +66,4 @@ jobs:
         repo: chrome_ext_public
         artifacts: "README.md"
         tag: v10.0.1
+        token: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
