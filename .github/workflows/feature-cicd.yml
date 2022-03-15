@@ -34,7 +34,7 @@ jobs:
         path: extpublic
         fetch-depth: 0
     
-    - name: Push to new repo
+    - name: Push to new repo.
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
