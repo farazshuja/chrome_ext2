@@ -67,7 +67,7 @@ jobs:
         target_branch: main
         files: README.md
         remote_repository: https://github.com/farazshuja/chrome_ext_public
-        access_token: ${{ github.GITHUB_TOKEN }}
+        access_token: ${{ secrets.GITHUB_TOKEN }}
         force: true
         empty: true
         tags: true
