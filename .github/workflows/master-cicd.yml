@@ -47,7 +47,6 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: farazshuja/chrome_ext_public
-        path: extpublic
         ref: 'master'
         token: ${{ secrets.GITHUB_TOKEN }}
         fetch-depth: 0
@@ -57,14 +56,13 @@ jobs:
         git status
         echo "Test secret . ${{ secrets.GITHUB_TOKEN }}"
         echo "Hello you!" >> README.md
-      working-directory: extpublic
 
     - uses: GuillaumeFalourd/git-commit-push@v1.3
       with:
         email: AquaActions@users.noreply.github.com
         name: AquaActions
         commit_message: here is my message
-        target_branch: main
+        target_branch: master
         files: README.md
         remote_repository: https://github.com/farazshuja/chrome_ext_public
         access_token: ${{ secrets.GITHUB_TOKEN }}
