@@ -9,18 +9,61 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+
     - name: Use Node.js 14.x
       uses: actions/setup-node@v2
       with:
         node-version: 14.x
         cache: 'yarn'
-    - run: yarn
-    - run: yarn pack:zip
+    # - run: yarn
+    # - run: yarn pack:zip
 
-    - name: package-version  
-      uses: nyaa8/package-version@v1.0.3
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v2.3.1
+    # - name: package-version  
+    #   uses: nyaa8/package-version@v1.0.3
+    # - name: Upload a Build Artifact
+    #   uses: actions/upload-artifact@v2.3.1
+    #   with:
+    #     name: 'aquaTestRecorder-v.${{ env.PACKAGE_VERSION }}'
+    #     path: extension.zip
+
+    - name: Checkout Public repo
+      uses: actions/checkout@v2
       with:
-        name: 'aquaTestRecorder-v.${{ env.PACKAGE_VERSION }}'
-        path: extension.zip
+        repository: farazshuja/chrome_ext_public
+        ref: master
+        path: extpublic
+        token: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
+        fetch-depth: 0
+    
+    # - name: Push to new repo.
+    #   run: |
+    #     echo "${{ secrets.ACTIONS_GITHUB_TOKEN }}"
+    #     echo "Hello you!" >> README.md
+    #     git config --global user.name 'Github'
+    #     git config --global user.email 'AquaActions@users.noreply.github.com'
+    #     git add README.md
+    #     git commit -m "Changed readme"
+    #     git push -u origin HEAD
+    #   working-directory: extpublic
+
+    - uses: GuillaumeFalourd/git-commit-push@v1.3
+      with:
+        email: AquaActions@users.noreply.github.com
+        name: AquaActions
+        commit_message: here is my message
+        target_branch: main
+        files: README.md
+        remote_repository: https://github.com/farazshuja/chrome_ext_public
+        access_token: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
+        force: true
+        empty: true
+        tags: true
+    
+    # Release version along with the zipped extension as assets
+    - uses: ncipollo/release-action@v1
+      with:
+        owner: farazshuja
+        repo: chrome_ext_public
+        artifacts: "README.md"
+        tag: v10.0.1
+        token: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
